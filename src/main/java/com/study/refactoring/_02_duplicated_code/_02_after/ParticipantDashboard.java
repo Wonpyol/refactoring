@@ -1,4 +1,4 @@
-package com.study.refactoring._02_duplicated_code.after;
+package com.study.refactoring._02_duplicated_code._02_after;
 
 import java.io.IOException;
 

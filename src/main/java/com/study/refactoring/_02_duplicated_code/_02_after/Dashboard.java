@@ -1,4 +1,4 @@
-package com.study.refactoring._02_duplicated_code.after;
+package com.study.refactoring._02_duplicated_code._02_after;
 
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHRepository;
@@ -11,16 +11,16 @@ import java.util.Set;
 public class Dashboard {
     public static void main(String[] args) throws IOException {
         ParticipantDashboard participantDashboard = new ParticipantDashboard();
-        participantDashboard.printParticipants(1);
+        participantDashboard.printParticipants(1);//pull up method
 
         ReviewerDashboard reviewerDashboard = new ReviewerDashboard();
-        reviewerDashboard.printReviewers();
+        reviewerDashboard.printReviewers();//pull up method
     }
 
     public void printUserNames(int eventId) throws IOException {
-        GHIssue issue = getGhIssue(eventId);
-        Set<String> userNames = getUserNames(issue);
-        print(userNames);
+        GHIssue issue = getGhIssue(eventId); //extract method
+        Set<String> userNames = getUserNames(issue); //extract method
+        print(userNames); //extract method
     }
 
     private void print(Set<String> userNames) {

@@ -1,4 +1,4 @@
-package com.study.refactoring._03_long_function.before;
+package com.study.refactoring._03_long_function._01_before;
 
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueComment;

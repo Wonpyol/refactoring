@@ -1,4 +1,4 @@
-package com.study.refactoring._02_duplicated_code.before;
+package com.study.refactoring._02_duplicated_code._01_before;
 
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHRepository;

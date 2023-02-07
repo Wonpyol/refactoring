@@ -1,4 +1,4 @@
-package com.study.refactoring._03_long_function.after;
+package com.study.refactoring._04_long_parameter_list.combine_functinos_into_class;
 
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueComment;
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -17,26 +18,26 @@ import java.util.concurrent.Executors;
 
 public class StudyDashboard {
 
-    private final int totalEvents;
+    private final int totalNumberOfEvents;
 
-    public StudyDashboard(int totalEvents) {
-        this.totalEvents = totalEvents;
+    public StudyDashboard(int totalNumberOfEvents) {
+        this.totalNumberOfEvents = totalNumberOfEvents;
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        StudyDashboard studyDashboard = new StudyDashboard(1);
+        StudyDashboard studyDashboard = new StudyDashboard(15);
         studyDashboard.print();
     }
 
     private void print() throws IOException, InterruptedException {
-        GHRepository repository = getRepository();
-
+        GitHub gitHub = GitHub.connect();
+        GHRepository repository = gitHub.getRepository("whiteship/live-study");
         List<Participant> participants = new CopyOnWriteArrayList<>();
 
         ExecutorService service = Executors.newFixedThreadPool(8);
-        CountDownLatch latch = new CountDownLatch(this.totalEvents);
+        CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
 
-        for (int index = 1 ; index <= this.totalEvents ; index++) {
+        for (int index = 1 ; index <= totalNumberOfEvents ; index++) {
             int eventId = index;
             service.execute(new Runnable() {
                 @Override
@@ -77,16 +78,36 @@ public class StudyDashboard {
             writer.print(header(participants.size()));
 
             participants.forEach(p -> {
-                String markdownForHomework = String.format("| %s %s | %.2f%% |\n", p.username(), checkMark(p), p.getRate(this.totalEvents));
+                String markdownForHomework = getMarkdownForParticipant(p.username(), p.homework());
                 writer.print(markdownForHomework);
             });
         }
     }
 
-    private GHRepository getRepository() throws IOException {
-        GitHub gitHub = GitHub.connect();
-        GHRepository repository = gitHub.getRepository("Wonpyol/refactoring");
-        return repository;
+    private String getMarkdownForParticipant(String username, Map<Integer, Boolean> homework) {
+        return String.format("| %s %s | %.2f%% |\n", username, checkMark(homework), getRate(homework));
+    }
+
+    /**
+     * |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:|
+     */
+    private String checkMark(Map<Integer, Boolean> homework) {
+        StringBuilder line = new StringBuilder();
+        for (int i = 1 ; i <= this.totalNumberOfEvents ; i++) {
+            if(homework.containsKey(i) && homework.get(i)) {
+                line.append("|:white_check_mark:");
+            } else {
+                line.append("|:x:");
+            }
+        }
+        return line.toString();
+    }
+
+    private double getRate(Map<Integer, Boolean> homework) {
+        long count = homework.values().stream()
+                .filter(v -> v == true)
+                .count();
+        return (double) (count * 100 / this.totalNumberOfEvents);
     }
 
     /**
@@ -96,29 +117,21 @@ public class StudyDashboard {
     private String header(int totalNumberOfParticipants) {
         StringBuilder header = new StringBuilder(String.format("| 참여자 (%d) |", totalNumberOfParticipants));
 
-        for (int index = 1; index <= this.totalEvents; index++) {
+        for (int index = 1; index <= this.totalNumberOfEvents; index++) {
             header.append(String.format(" %d주차 |", index));
         }
         header.append(" 참석율 |\n");
 
-        header.append("| --- ".repeat(Math.max(0, this.totalEvents + 2)));
+        header.append("| --- ".repeat(Math.max(0, this.totalNumberOfEvents + 2)));
         header.append("|\n");
 
         return header.toString();
     }
 
-    /**
-     * |:white_check_mark:|:white_check_mark:|:white_check_mark:|:x:|
-     */
-    private String checkMark(Participant p) {
-        StringBuilder line = new StringBuilder();
-        for (int i = 1 ; i <= this.totalEvents ; i++) {
-            if(p.homework().containsKey(i) && p.homework().get(i)) {
-                line.append("|:white_check_mark:");
-            } else {
-                line.append("|:x:");
-            }
-        }
-        return line.toString();
-    }
+
+
+
+
+
+
 }
