@@ -22,7 +22,7 @@ public class StudyPrinter {
         }
     }
 
-    private double getRate(int totalNumberOfEvents, Participant p) {
+    private double getRate(int totalNumberOfEvents, Participant p) { //임의 변수를 질의 함수로 바꾸기
         long count = p.homework().values().stream()
                 .filter(v -> v == true)
                 .count();

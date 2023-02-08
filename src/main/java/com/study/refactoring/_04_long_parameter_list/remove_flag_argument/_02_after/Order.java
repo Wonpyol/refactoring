@@ -1,4 +1,4 @@
-package com.study.refactoring._04_long_parameter_list.remove_flag_argument;
+package com.study.refactoring._04_long_parameter_list.remove_flag_argument._02_after;
 
 import java.time.LocalDate;
 

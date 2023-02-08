@@ -30,7 +30,7 @@ public class StudyDashboard {
     private void print() throws IOException, InterruptedException {
         GHRepository repository = getRepository();
         checkGithubIssues(repository);
-        new StudyPrinter().execute(this.participants, this.totalEvents);
+        new StudyPrinter().execute(this.participants, this.totalEvents);//함수를 명령으로 바꾸기(커맨드패턴)
     }
 
     private void checkGithubIssues(GHRepository repository) throws InterruptedException {
@@ -45,7 +45,7 @@ public class StudyDashboard {
                     try {
                         GHIssue issue = repository.getIssue(eventId);
                         List<GHIssueComment> comments = issue.getComments();
-                        checkHomework(comments, participants, eventId);
+                        checkHomework(comments, participants, eventId); //반복문 쪼개기
                         latch.countDown();
                     } catch (IOException e) {
                         throw new IllegalArgumentException(e);
@@ -59,13 +59,13 @@ public class StudyDashboard {
 
     private void checkHomework(List<GHIssueComment> comments, List<Participant> participants, int eventId) {
         for (GHIssueComment comment : comments) {
-            Participant participant = getParticipant(comment, participants);
+            Participant participant = getParticipant(comment, participants); //객체 통째로 넘기기
             participant.setHomeworkDone(eventId);
         }
     }
 
     private Participant getParticipant(GHIssueComment comment, List<Participant> participants) {
-        return isNewUser(participants, comment.getUserName()) ?
+        return isNewUser(participants, comment.getUserName()) ? //조건문 분해하기
                 createParticipant(participants, comment.getUserName()) :
                 getParticipant(participants, comment.getUserName());
     }

@@ -1,4 +1,4 @@
-package com.study.refactoring._04_long_parameter_list.combine_functinos_into_class;
+package com.study.refactoring._04_long_parameter_list.combine_functinos_into_class._02_after;
 
 import java.util.HashMap;
 import java.util.Map;
