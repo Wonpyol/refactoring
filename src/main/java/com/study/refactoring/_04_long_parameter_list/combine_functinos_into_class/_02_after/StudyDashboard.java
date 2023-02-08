@@ -25,13 +25,13 @@ public class StudyDashboard {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        StudyDashboard studyDashboard = new StudyDashboard(15);
+        StudyDashboard studyDashboard = new StudyDashboard(2);
         studyDashboard.print();
     }
 
     private void print() throws IOException, InterruptedException {
         GitHub gitHub = GitHub.connect();
-        GHRepository repository = gitHub.getRepository("whiteship/live-study");
+        GHRepository repository = gitHub.getRepository("Wonpyol/refactoring");
         List<Participant> participants = new CopyOnWriteArrayList<>();
 
         ExecutorService service = Executors.newFixedThreadPool(8);
@@ -73,11 +73,5 @@ public class StudyDashboard {
 
         new StudyPrinter(this.totalNumberOfEvents, participants).print();
     }
-
-
-
-
-
-
 
 }
