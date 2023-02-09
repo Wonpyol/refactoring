@@ -1,0 +1,32 @@
+package com.study.refactoring._06_mutable_data.split_variable._02_after;
+
+public class Haggis {
+
+    private double primaryForce;
+    private double secondaryForce;
+    private double mass;
+    private int delay;
+
+    public Haggis(double primaryForce, double secondaryForce, double mass, int delay) {
+        this.primaryForce = primaryForce;
+        this.secondaryForce = secondaryForce;
+        this.mass = mass;
+        this.delay = delay;
+    }
+
+    public double distanceTravelled(int time) {
+        double result;
+        double primaryAcceleration = primaryForce / mass;
+        int primaryTime = Math.min(time, delay);
+        result = 0.5 * primaryAcceleration * primaryTime * primaryTime;
+
+        int secondaryTime = time - delay;
+        if (secondaryTime > 0) {
+            double primaryVelocity = primaryAcceleration * delay;
+            double secondAcceleration = (primaryForce + secondaryForce) / mass;
+            result += primaryVelocity * secondaryTime + 0.5 * secondAcceleration * secondaryTime + secondaryTime;
+        }
+
+        return result;
+    }
+}

@@ -1,9 +1,9 @@
-package com.study.refactoring._04_long_parameter_list.replace_parameter_with_query.after._02_after;
+package com.study.refactoring._04_long_parameter_list.replace_parameter_with_query._01_before;
 
-import com.study.refactoring._04_long_parameter_list.replace_parameter_with_query.after.Order;
+import com.study.refactoring._04_long_parameter_list.replace_parameter_with_query.before.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OrderTest {
     @Test

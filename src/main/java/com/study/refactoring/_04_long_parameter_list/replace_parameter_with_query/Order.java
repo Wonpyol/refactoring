@@ -1,4 +1,4 @@
-package com.study.refactoring._04_long_parameter_list.replace_parameter_with_query.after;
+package com.study.refactoring._04_long_parameter_list.replace_parameter_with_query;
 
 public class Order {
 
