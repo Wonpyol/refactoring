@@ -12,13 +12,6 @@ public class Employee {
         this.type = type;
     }
 
-    private void validate(String type) {
-        List<String> legalTypes = List.of("engineer", "manager", "salesman");
-        if (!legalTypes.contains(type)) {
-            throw new IllegalArgumentException(type);
-        }
-    }
-
     public String getType() {
         return type;
     }

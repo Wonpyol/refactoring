@@ -8,7 +8,6 @@ class EmployeeTest {
     @Test
     void getType() {
         SalesMan salesMan = new SalesMan("wonypol");
-
         assertEquals("salesman", salesMan.getType());
     }
 
