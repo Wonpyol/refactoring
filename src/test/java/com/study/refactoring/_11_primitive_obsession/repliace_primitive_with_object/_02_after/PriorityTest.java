@@ -20,7 +20,7 @@ class PriorityTest {
         Priority priority = new Priority("high");
         Priority other = new Priority("low");
 
-        assertEquals(true, priority.higherThan(other));
+        assertTrue(priority.higherThan(other));
 
     }
 
@@ -29,7 +29,7 @@ class PriorityTest {
         Priority priority = new Priority("high");
         Priority other = new Priority("rush");
 
-        assertEquals(false, priority.higherThan(other));
+        assertFalse(priority.higherThan(other));
 
     }
 

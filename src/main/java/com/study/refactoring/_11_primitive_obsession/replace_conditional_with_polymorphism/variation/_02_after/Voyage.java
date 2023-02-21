@@ -2,3 +2,4 @@ package com.study.refactoring._11_primitive_obsession.replace_conditional_with_p
 
 public record Voyage(String zone, int length) {
 }
+

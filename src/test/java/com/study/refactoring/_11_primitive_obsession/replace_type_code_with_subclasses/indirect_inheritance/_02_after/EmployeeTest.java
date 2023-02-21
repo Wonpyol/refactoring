@@ -13,7 +13,7 @@ class EmployeeTest {
 
     @Test
     void capitalizedType() {
-        Employee employee = new Employee("wonpyol", "manager");
+        Employee employee = new Manager("wonpyol");
 
         assertEquals("Manager", employee.capitalizedType());
     }

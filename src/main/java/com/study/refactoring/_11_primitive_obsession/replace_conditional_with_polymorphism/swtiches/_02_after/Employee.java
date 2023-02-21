@@ -2,10 +2,8 @@ package com.study.refactoring._11_primitive_obsession.replace_conditional_with_p
 
 import java.util.List;
 
-public class Employee {
-
+public abstract class Employee {
     private String type;
-
     private List<String> availableProjects;
 
     public Employee(String type, List<String> availableProjects) {
@@ -13,20 +11,11 @@ public class Employee {
         this.availableProjects = availableProjects;
     }
 
-    public int vacationHours() {
-        return switch (type) {
-            case "full-time" -> 120;
-            case "part-time" -> 80;
-            case "temporal" -> 32;
-            default -> 0;
-        };
-    }
+    public abstract int vacationHours();
 
-    public boolean canAccessTo(String project) {
-        return switch (type) {
-            case "full-time" -> true;
-            case "part-time", "temporal" -> this.availableProjects.contains(project);
-            default -> false;
-        };
+    public abstract boolean canAccessTo(String project);
+
+    public List<String> getAvailableProjects() {
+        return availableProjects;
     }
 }
