@@ -7,8 +7,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeTest {
     @Test
     void getType() {
-        SalesMan salesMan = new SalesMan("wonypol");
-        assertEquals("salesman", salesMan.getType());
+        assertEquals("manager", Employee.createEmployee("wonpyol", "manager").getType());
+        assertEquals("salesman", Employee.createEmployee("wonpyol", "salesman").getType());
+        assertEquals("engineer", Employee.createEmployee("wonpyol", "engineer").getType());
+        assertThrows(IllegalArgumentException.class, () -> Employee.createEmployee("wonpyol", "tester").getType());
     }
 
 }

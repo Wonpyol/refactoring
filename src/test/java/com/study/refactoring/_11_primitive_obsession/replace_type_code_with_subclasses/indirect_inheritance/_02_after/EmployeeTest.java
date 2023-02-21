@@ -7,16 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeTest {
 
     @Test
-    void validate_IllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new Employee("wonypol", "ceo"));
-    }
-
-    @Test
     void capitalizedType() {
-        Employee employee = new Manager("wonpyol");
-
-        assertEquals("Manager", employee.capitalizedType());
+        assertEquals("Engineer", new Employee("wonpyol", "engineer").capitalizedType());
+        assertEquals("Engineer", new FullTimeEmployee("wonpyol", "engineer").capitalizedType());
     }
-
-
 }

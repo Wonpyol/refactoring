@@ -1,26 +1,25 @@
 package com.study.refactoring._11_primitive_obsession.replace_type_code_with_subclasses.indirect_inheritance._02_after;
 
-import java.util.List;
-
 public class Employee {
-    private String name;
-    private String type;
+
+    private final String name;
+
+    private final EmployeeType type;
 
     public Employee(String name, String type) {
-        this.validate(type);
         this.name = name;
-        this.type = type;
+        this.type = employeeType(type);
     }
 
-    private void validate(String type) {
-        List<String> legalTypes = List.of("engineer", "manager", "salesman");
-        if (!legalTypes.contains(type)) {
-            throw new IllegalArgumentException(type);
-        }
+    private EmployeeType employeeType(String type) {
+        return switch (type) {
+            case "engineer" -> new Engineer();
+            default -> throw new IllegalArgumentException("not found type:" + type);
+        };
     }
 
     public String capitalizedType() {
-        return this.type.substring(0, 1).toUpperCase() + this.type.substring(1).toLowerCase();
+        return this.type.capitalizedType();
     }
 
     @Override

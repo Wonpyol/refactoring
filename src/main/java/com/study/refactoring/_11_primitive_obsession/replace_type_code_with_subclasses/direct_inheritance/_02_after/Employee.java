@@ -1,24 +1,29 @@
 package com.study.refactoring._11_primitive_obsession.replace_type_code_with_subclasses.direct_inheritance._02_after;
 
-public class Employee {
+import java.util.List;
+
+public abstract class Employee {
     private String name;
-
-    private String type;
-
-    public Employee(String name, String type) {
+    public Employee(String name) {
         this.name = name;
-        this.type = type;
     }
 
-    public String getType() {
-        return type;
+    public static Employee createEmployee(String name, String type) {
+        return switch (type) {
+            case "engineer" -> new Engineer(name);
+            case "manager" -> new Manager(name);
+            case "salesman" -> new SalesMan(name);
+            default -> throw new IllegalArgumentException("not found type:"+type);
+        };
     }
+
+    public abstract String getType();
 
     @Override
     public String toString() {
         return "Employee{" +
                 "name='" + name + '\'' +
-                ", type='" + type + '\'' +
+                ", type='" + getType() + '\'' +
                 '}';
     }
 }
