@@ -13,4 +13,13 @@ class EmployeeTest {
         assertThrows(IllegalArgumentException.class, () -> Employee.createEmployee("wonpyol", "tester").getType());
     }
 
+    @Test
+    void polymorphismTest() {
+        Manager employee = (Manager) Employee.createEmployee("wonpyol", "manager");
+        assertInstanceOf(Manager.class, employee);
+        assertInstanceOf(Employee.class, employee);
+    }
+
+
+
 }

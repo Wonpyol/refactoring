@@ -3,18 +3,14 @@ package com.study.refactoring._11_primitive_obsession.replace_conditional_with_p
 import java.util.List;
 
 public class FullTimeEmployee extends Employee{
-
-    public FullTimeEmployee(List<String> availableProjects) {
-        super("full-time", availableProjects);
+    public FullTimeEmployee() {
     }
-
     @Override
     public int vacationHours() {
         return 120;
     }
-
     @Override
-    public boolean canAccessTo(String project) {
+    public boolean canAccessTo(String project){
         return true;
     }
 }

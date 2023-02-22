@@ -11,4 +11,11 @@ class EmployeeTest {
         assertEquals("Engineer", new Employee("wonpyol", "engineer").capitalizedType());
         assertEquals("Engineer", new FullTimeEmployee("wonpyol", "engineer").capitalizedType());
     }
+
+    @Test
+    void polymorphismTest() {
+        FullTimeEmployee fullTimeEmployee = new FullTimeEmployee("wonpyol", "engineer");
+        assertInstanceOf(Employee.class, fullTimeEmployee);
+        assertInstanceOf(FullTimeEmployee.class, fullTimeEmployee);
+    }
 }

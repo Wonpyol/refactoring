@@ -7,21 +7,27 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeTest {
-    private List<String> list;
-
-    @BeforeEach
-    void init() {
-        list = List.of("java", "c");
-    }
     @Test
-    void vacationHours() {
-        assertEquals(120, new FullTimeEmployee(list).vacationHours());
+    void fulltime() {
+        List<String> projects = List.of("java", "c");
+        assertEquals(120, new FullTimeEmployee().vacationHours());
+        assertTrue(new FullTimeEmployee().canAccessTo("java"));
     }
 
     @Test
-    void canAccessTo() {
-        assertFalse(new HalfTimeEmployee(list).canAccessTo("jpa"));
-        assertTrue(new HalfTimeEmployee(list).canAccessTo("java"));
+    void halftime() {
+        List<String> projects = List.of("java", "c");
+        assertEquals(80, new HalfTimeEmployee(projects).vacationHours());
+        assertTrue(new HalfTimeEmployee(projects).canAccessTo("java"));
+        assertFalse(new HalfTimeEmployee(projects).canAccessTo("jpa"));
+    }
+
+    @Test
+    void temporal() {
+        List<String> projects = List.of("java", "c");
+        assertEquals(32, new TemporalEmployee(projects).vacationHours());
+        assertTrue(new TemporalEmployee(projects).canAccessTo("java"));
+        assertFalse(new TemporalEmployee(projects).canAccessTo("jpa"));
     }
 
 }
