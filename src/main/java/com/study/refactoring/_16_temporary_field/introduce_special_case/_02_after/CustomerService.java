@@ -1,18 +1,9 @@
-package com.study.refactoring._16_temporary_field.introduce_special_case;
+package com.study.refactoring._16_temporary_field.introduce_special_case._02_after;
 
 public class CustomerService {
 
     public String customerName(Site site) {
-        Customer customer = site.getCustomer();
-
-        String customerName;
-        if (customer.getName().equals("unknown")) {
-            customerName = "occupant";
-        } else {
-            customerName = customer.getName();
-        }
-
-        return customerName;
+        return site.getCustomer().getName();
     }
 
     public BillingPlan billingPlan(Site site) {

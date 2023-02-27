@@ -1,4 +1,4 @@
-package com.study.refactoring._11_primitive_obsession.replace_type_code_with_subclasses.indirect_inheritance._01_berfore;
+package com.study.refactoring._11_primitive_obsession.replace_type_code_with_subclasses.indirect_inheritance._01_before;
 
 import java.util.List;
 
