@@ -8,12 +8,12 @@ public class CustomerService {
 
     public BillingPlan billingPlan(Site site) {
         Customer customer = site.getCustomer();
-        return customer.getName().equals("unknown") ? new BasicBillingPlan() : customer.getBillingPlan();
+        return customer.getBillingPlan();
     }
 
     public int weeksDelinquent(Site site) {
         Customer customer = site.getCustomer();
-        return customer.getName().equals("unknown") ? 0 : customer.getPaymentHistory().getWeeksDelinquentInLastYear();
+        return customer.getPaymentHistory().getWeeksDelinquentInLastYear();
     }
 
 }
