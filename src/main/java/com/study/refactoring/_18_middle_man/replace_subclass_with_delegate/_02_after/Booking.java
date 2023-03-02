@@ -4,23 +4,46 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 public class Booking {
+    protected Show show;
 
-    protected BookingDelegate bookingDelegate;
+    protected LocalDateTime time;
 
-    public Booking(BookingDelegate bookingDelegate) {
-        this.bookingDelegate = bookingDelegate;
+    private PremiumDelegate premiumDelegate;
+
+    public Booking(Show show, LocalDateTime time) {
+        this.show = show;
+        this.time = time;
+    }
+
+    public static Booking createBooking(Show show, LocalDateTime time) {
+        return new Booking(show, time);
+    }
+
+    public static Booking createPremiumBooking(Show show, LocalDateTime time, PremiumExtra extra) {
+        Booking booking = createBooking(show, time);
+        booking.premiumDelegate = new PremiumDelegate(booking, extra);
+        return booking;
     }
 
     public boolean hasTalkback() {
-        return this.bookingDelegate.hasTalkback();
+        return (premiumDelegate != null) ? premiumDelegate.hasTalkback() : (this.show.hasOwnProperty("talkback") && !this.isPeakDay());
     }
 
     protected boolean isPeakDay() {
-        return this.bookingDelegate.isPeakDay();
+        DayOfWeek dayOfWeek = this.time.getDayOfWeek();
+        return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
     }
 
     public double basePrice() {
-        return this.bookingDelegate.basePrice();
+        double result = this.show.getPrice();
+        if (this.isPeakDay()) result += Math.round(result * 0.15);
+        if(premiumDelegate != null) {
+            result = premiumDelegate.extraBasePrice(result);
+        }
+        return result;
     }
 
+    public boolean hasDinner() {
+        return premiumDelegate != null && this.premiumDelegate.getExtra().hasOwnProperty("dinner") && !this.isPeakDay();
+    }
 }
