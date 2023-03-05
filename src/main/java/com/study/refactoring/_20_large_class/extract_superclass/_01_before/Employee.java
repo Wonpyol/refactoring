@@ -1,4 +1,4 @@
-package com.study.refactoring._20_large_class.extract_superclass;
+package com.study.refactoring._20_large_class.extract_superclass._01_before;
 
 public class Employee {
 
